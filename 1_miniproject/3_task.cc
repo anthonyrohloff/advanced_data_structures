@@ -52,24 +52,63 @@ template <typename T> class OrderedList {
 
 		// Add item in order
 		void AddItem(const T& item) {
-			if (IsFull()) {
-				throw ListError("Cannot add item: list is full.");
-			}
-
-			int i = 0;
-			while (i < size && *items[i] < item) {
-				i++;
-			}
-
-			// SHR
-			for (int j = size; j > i; j--) {
-				items[j] = items[j - 1];
-			}
-
-			items[i] = new T(item);
-			size++;
+		    if (IsFull()) throw ListError("List is full");
+		
+		    // Case 1: empty
+		    if (IsEmpty()) {
+		        items[0] = new T(item);
+		        size++;
+		        return;
+		    }
+		
+		    // Case 2: walk through to find insertion window
+		    for (int i = 0; i < 19; i++) {
+		        if (items[i] == nullptr) continue;
+		
+		        // find right neighbor
+		        int next = i + 1;
+		        while (next < 20 && items[next] == nullptr) next++;
+		        if (next >= 20 || items[next] == nullptr) break;
+		
+		        // check if item belongs here
+		        if (*items[i] < item && item < *items[next]) {
+		            if (next > i + 1) {
+		                // gap exists, insert midpoint
+		                int mid = (i + next) / 2;
+		                items[mid] = new T(item);
+		                size++;
+		                return;
+		            } else {
+		                // contiguous, shift right once
+		                for (int j = 19; j > next; j--) items[j] = items[j - 1];
+		                items[next] = new T(item);
+		                size++;
+		                return;
+		            }
+		        }
+		    }
+		
+		    // Case 3: smaller than all
+		    for (int i = 0; i < 20; i++) {
+		        if (items[i] != nullptr && item < *items[i]) {
+		            // shift right to open this slot
+		            for (int j = 19; j > i; j--) items[j] = items[j - 1];
+		            items[i] = new T(item);
+		            size++;
+		            return;
+		        }
+		    }
+		
+		    // Case 4: bigger than all, put in first free spot
+		    for (int i = 0; i < 20; i++) {
+		        if (items[i] == nullptr) {
+		            items[i] = new T(item);
+		            size++;
+		            return;
+		        }
+		    }
 		}
-
+		
 		// Remove item
 		void RemoveItem(const T& item) {
 			for (int i = 0; i < 20; i++) {
