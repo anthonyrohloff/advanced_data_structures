@@ -48,12 +48,12 @@ public:
 // Defining class template
 template <typename T> class OrderedList1 {
 	private:
-		T* items[30]; // array of pointers
+		T* items[10]; // array of pointers
 		int size;
 
 	public:
 		OrderedList1() : size(0) {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				items[i] = nullptr;
 			}
 		}
@@ -70,7 +70,7 @@ template <typename T> class OrderedList1 {
 
 		// Check if list is full
 		bool IsFull() const {
-			return size == 30;
+			return size == 10;
 		}
 
 		// Remove all items
@@ -84,10 +84,12 @@ template <typename T> class OrderedList1 {
 
 		// Add item in order
 		void AddItem(const T& item) {
-			if (IsFull()) {
-				throw ListError("Cannot add item: list is full.");
+			try {
+				if (IsFull()) { throw ListError("Cannot add item: list is full."); }
 			}
-
+			catch (const ListError&e) {
+				cout << "Caught ListError: " << e.what() << endl;
+			}
 			int i = 0;
 			while (i < size && *items[i] < item) {
 				i++;
@@ -96,6 +98,7 @@ template <typename T> class OrderedList1 {
 			// SHR
 			for (int j = size; j > i; j--) {
 				items[j] = items[j - 1];
+				Counter::moves++;
 			}
 
 			items[i] = new T(item);
@@ -109,14 +112,19 @@ template <typename T> class OrderedList1 {
 				i++;
 			}
 
-			if (i == size) {
-				throw ListError("Item not found in the list.");
+			try {
+				if (i == size) {
+					throw ListError("Item not found in the list.");
+				}
 			}
-
+			catch (const ListError& e) {
+				cout << "Caught ListError: " << e.what() << endl;
+			}
 			delete items[i];
 
 			for (int j = i; j < size - 1; j++) {
 				items[j] = items [j + 1];
+				Counter::moves++;
 			}
 
 			items[size - 1] = nullptr;
@@ -136,12 +144,12 @@ template <typename T> class OrderedList1 {
 // Defining class template
 template <typename T> class OrderedList2 {
 	private:
-		T* items[30]; // array of pointers
+		T* items[10]; // array of pointers
 		int size;
 
 	public:
 		OrderedList2() : size(0) {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				items[i] = nullptr;
 			}
 		}
@@ -158,7 +166,7 @@ template <typename T> class OrderedList2 {
 
 		// Check if list is full
 		bool IsFull() const {
-			return size == 30;
+			return size == 10;
 		}
 
 		// Remove all items
@@ -172,10 +180,13 @@ template <typename T> class OrderedList2 {
 
 		// Add item in order
 		void AddItem(const T& item) {
-			if (IsFull()) {
-				throw ListError("Cannot add item: list is full.");
-			}
-			
+			try {
+                                if (IsFull()) { throw ListError("Cannot add item: list is full."); }
+                        }
+                        catch (const ListError&e) {
+                                cout << "Caught ListError: " << e.what() << endl;
+                        }
+
 			int i = size;
 			while (i > 0 && *items[i-1] > item) {				
 				i--;
@@ -183,6 +194,7 @@ template <typename T> class OrderedList2 {
 			// SHR
 			for (int j = size; j > i; j--) {
 				items[j] = items[j - 1];
+				Counter::moves++;
 			}
 			items[i] = new T(item);
 			size++;
@@ -195,14 +207,19 @@ template <typename T> class OrderedList2 {
 				i++;
 			}
 
-			if (i == size) {
-				throw ListError("Item not found in the list.");
+			try {
+				if (i == size) {
+					throw ListError("Item not found in the list.");
+				}
 			}
-
+			catch (const ListError& e) {
+				cout << "Caught ListError: " << e.what() << endl;
+			}
 			delete items[i];
 
 			for (int j = i; j < size - 1; j++) {
 				items[j] = items [j + 1];
+				Counter::moves++;
 			}
 
 			items[size - 1] = nullptr;
@@ -222,12 +239,12 @@ template <typename T> class OrderedList2 {
 // Defining class template
 template <typename T> class OrderedList3 {
 	private:
-		T* items[30]; // array of pointers
+		T* items[10]; // array of pointers
 		int size;
 
 	public:
 		OrderedList3() : size(0) {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				items[i] = nullptr;
 			}
 		}
@@ -244,7 +261,7 @@ template <typename T> class OrderedList3 {
 
 		// Check if list is full
 		bool IsFull() const {
-			return size == 30;
+			return size == 10;
 		}
 
 		// Remove all items
@@ -258,7 +275,13 @@ template <typename T> class OrderedList3 {
 
 		// Add item in order
 		void AddItem(const T& item) {
-		    if (IsFull()) throw ListError("List is full");
+                        try {
+                                if (IsFull()) { throw ListError("Cannot add item: list is full."); }
+                        }
+                        catch (const ListError&e) {
+                                cout << "Caught ListError: " << e.what() << endl;
+                        }
+
 		
 		    // Case 1: empty
 		    if (IsEmpty()) {
@@ -268,13 +291,13 @@ template <typename T> class OrderedList3 {
 		    }
 		
 		    // Case 2: walk through to find insertion window
-		    for (int i = 0; i < 19; i++) {
+		    for (int i = 0; i < 9; i++) {
 		        if (items[i] == nullptr) continue;
 		
 		        // find right neighbor
 		        int next = i + 1;
-		        while (next < 30 && items[next] == nullptr) next++;
-		        if (next >= 30 || items[next] == nullptr) break;
+		        while (next < 10 && items[next] == nullptr) next++;
+		        if (next >= 10 || items[next] == nullptr) break;
 		
 		        // check if item belongs here
 		        if (*items[i] < item && item < *items[next]) {
@@ -286,27 +309,29 @@ template <typename T> class OrderedList3 {
 		                return;
 		            } else {
 		                // contiguous, shift right once
-		                for (int j = 19; j > next; j--) items[j] = items[j - 1];
+		                for (int j = 9; j > next; j--) items[j] = items[j - 1];
 		                items[next] = new T(item);
 		                size++;
+				Counter::moves++;
 		                return;
 		            }
 		        }
 		    }
 		
 		    // Case 3: smaller than all
-		    for (int i = 0; i < 30; i++) {
+		    for (int i = 0; i < 10; i++) {
 		        if (items[i] != nullptr && item < *items[i]) {
 		            // shift right to open this slot
-		            for (int j = 19; j > i; j--) items[j] = items[j - 1];
+		            for (int j = 9; j > i; j--) items[j] = items[j - 1];
 		            items[i] = new T(item);
 		            size++;
+			    Counter::moves++;
 		            return;
 		        }
 		    }
 		
 		    // Case 4: bigger than all, put in first free spot
-		    for (int i = 0; i < 30; i++) {
+		    for (int i = 0; i < 10; i++) {
 		        if (items[i] == nullptr) {
 		            items[i] = new T(item);
 		            size++;
@@ -317,7 +342,7 @@ template <typename T> class OrderedList3 {
 		
 		// Remove item
 		void RemoveItem(const T& item) {
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				if (items[i] != nullptr && *items[i] == item) {
 					delete items[i];
 					items[i] = nullptr;
@@ -325,13 +350,18 @@ template <typename T> class OrderedList3 {
 					return;
 				}
 			}
-			throw ListError("Item not found in list");
+			try{
+				throw ListError("Item not found in list");
+			}
+			catch (const ListError& e) {
+				cout << "Caught ListError: " << e.what() << endl;
+			}
 		}
 
 		// Display list
 		void PrintList() const {
 			int j = 0;
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				if (items[i] != nullptr){
 					cout << *items[i] << " ";
 					j++;
@@ -355,8 +385,8 @@ int main(){
         OrderedList3<MyItem> list3;
 
         vector<int> inserted;
-        // Insert 30 random numbers
-        for(int i=0;i<30;i++){
+        // Insert 10 random numbers
+        for(int i=0;i<10;i++){
             int val=rand()%100;
             inserted.push_back(val);
 
@@ -375,8 +405,8 @@ int main(){
             totalComp3+=Counter::comparisons; 
             totalMoves3+=Counter::moves;
         }
-        // Remove 25 random ones
-        for(int i=0;i<25;i++){
+        // Remove 5 random ones
+        for(int i=0;i<5;i++){
             int idx=rand()%inserted.size();
             int val=inserted[idx];
             inserted.erase(inserted.begin()+idx);
