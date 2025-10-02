@@ -14,20 +14,20 @@ class ListError : public exception {
 	};
 
 // Defining class template
-template <typename T> class OrderedList {
+template <typename T> class OrderedList1 {
 	private:
 		T* items[20]; // array of pointers
 		int size;
 
 	public:
-		OrderedList() : size(0) {
+		OrderedList1() : size(0) {
 			for (int i = 0; i < 20; i++) {
 				items[i] = nullptr;
 			}
 		}
 	
 		// Destructor
-		~OrderedList() {
+		~OrderedList1() {
 			MakeEmpty();
 		}
 
@@ -118,7 +118,7 @@ class MyItem {
 
 
 int main() {
-	OrderedList<MyItem> list;
+	OrderedList1<MyItem> list;
 
 	try {
 		list.AddItem(MyItem(10));
