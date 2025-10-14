@@ -185,6 +185,25 @@ public:
 
     void Reset() { iterator = head; }
 
+    void DisplayList() {
+        cout << "\n===== Ordered List Display =====\n";
+        cout << "(Total items: " << Size() << ")\n\n";
+
+        Node<T>* savedIterator = iterator;
+
+        Node<T>* current = head;
+        int index = 0;
+        while (current != nullptr) {
+            cout << "Item " << index++ << ":\n";
+            current->getData()->Display();
+            current = current->getNext();
+        }
+
+        cout << "===== End of List =====\n";
+
+        iterator = savedIterator;
+    }
+
     friend ostream& operator<< <T>(ostream& os, const OrderedList<T>& ol);
 
 private:
@@ -288,6 +307,40 @@ public:
            << ") GPA: " << student.gpa;
         return os;
     }
+
+    void Display() const {
+        cout << "+------------------------------------------+\n";
+        cout << "| Name: " << firstName << ' ' << lastName;
+        size_t nameLen = firstName.size() + lastName.size() + 7;
+        for (size_t i = nameLen; i < 42; ++i) {
+            cout << ' ';
+        }
+        cout << "|\n";
+
+        cout << "| M#: " << mNumber;
+        size_t mLen = mNumber.size() + 5;
+        for (size_t i = mLen; i < 42; ++i) {
+            cout << ' ';
+        }
+        cout << "|\n";
+
+        cout << "| GPA: " << gpa;
+        string gpaStr = to_string(gpa);
+        size_t gpaLen = gpaStr.size() + 6;
+        for (size_t i = gpaLen; i < 42; ++i) {
+            cout << ' ';
+        }
+        cout << "|\n";
+
+        cout << "| Birthday: " << birthday;
+        size_t bdayLen = birthday.size() + 12;
+        for (size_t i = bdayLen; i < 42; ++i) {
+            cout << ' ';
+        }
+        cout << "|\n";
+
+        cout << "+------------------------------------------+\n";
+    }
 };
 
 static string PromptLine(const string& message) {
@@ -365,6 +418,7 @@ int main() {
         cout << "7. View student at index (SeeAt)\n";
         cout << "8. Reset iteration (Reset)\n";
         cout << "9. Display full list\n";
+        cout << "10. Display ASCII list (DisplayList)\n";
         cout << "0. Exit\n";
 
         string choiceLine = PromptLine("Enter choice: ");
@@ -376,7 +430,7 @@ int main() {
         try {
             choice = stoi(choiceLine);
         } catch (...) {
-            cout << "Invalid choice. Please enter a number from 0 to 9.\n";
+            cout << "Invalid choice. Please enter a number from 0 to 10.\n";
             continue;
         }
 
@@ -471,12 +525,16 @@ int main() {
             }
             break;
         }
+        case 10: {
+            students.DisplayList();
+            break;
+        }
         case 0:
             running = false;
             cout << "Exiting tester.\n";
             break;
         default:
-            cout << "Invalid choice. Please enter a number from 0 to 9.\n";
+            cout << "Invalid choice. Please enter a number from 0 to 10.\n";
             break;
         }
     }
