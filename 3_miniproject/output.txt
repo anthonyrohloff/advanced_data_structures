@@ -1,0 +1,71 @@
+
+Size n = 5
+  Insertion Sort: 0.000000 s
+  Selection Sort: 0.000000 s
+  Shell Sort: 0.000000 s
+  Heap Sort: 0.000001 s
+  Merge Sort: 0.000001 s
+  Quick Sort: 0.000006 s
+  Radix Sort: 0.000001 s
+  Linked-list Insertion Sort: 0.000000 s
+
+Size n = 50
+  Insertion Sort: 0.000002 s
+  Selection Sort: 0.000004 s
+  Shell Sort: 0.000003 s
+  Heap Sort: 0.000003 s
+  Merge Sort: 0.000005 s
+  Quick Sort: 0.000004 s
+  Radix Sort: 0.000001 s
+  Linked-list Insertion Sort: 0.000002 s
+
+Size n = 500
+  Insertion Sort: 0.000078 s
+  Selection Sort: 0.000186 s
+  Shell Sort: 0.000053 s
+  Heap Sort: 0.000037 s
+  Merge Sort: 0.000057 s
+  Quick Sort: 0.000047 s
+  Radix Sort: 0.000005 s
+  Linked-list Insertion Sort: 0.000126 s
+
+Size n = 5000
+  Insertion Sort: 0.005637 s
+  Selection Sort: 0.009978 s
+  Shell Sort: 0.000594 s
+  Heap Sort: 0.000235 s
+  Merge Sort: 0.000449 s
+  Quick Sort: 0.000353 s
+  Radix Sort: 0.000027 s
+  Linked-list Insertion Sort: 0.016192 s
+
+Size n = 50000
+  Insertion Sort: 0.153004 s
+  Selection Sort: 0.310711 s
+  Shell Sort: 0.003835 s
+  Heap Sort: 0.001469 s
+  Merge Sort: 0.002642 s
+  Quick Sort: 0.002328 s
+  Radix Sort: 0.000310 s
+  Linked-list Insertion Sort: 3.605327 s
+
+Size n = 500000
+  Insertion Sort: skipped (n beyond quadratic limit 50000)
+  Selection Sort: skipped (n beyond quadratic limit 50000)
+  Shell Sort: 0.048082 s
+  Heap Sort: 0.021007 s
+  Merge Sort: 0.031543 s
+  Quick Sort: 0.025951 s
+  Radix Sort: 0.002282 s
+
+Size n = 5000000
+  Insertion Sort: skipped (n beyond quadratic limit 50000)
+  Selection Sort: skipped (n beyond quadratic limit 50000)
+  Shell Sort: 0.646670 s
+  Heap Sort: 0.404087 s
+  Merge Sort: 0.365181 s
+  Quick Sort: 0.315547 s
+  Radix Sort: 0.026742 s
+
+Size n = 5000000000
+  Skipped data generation: exceeds configured memory limit (2147483648 bytes)
